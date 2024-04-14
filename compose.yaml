@@ -1,0 +1,52 @@
+# Comments are provided throughout this file to help you get started.
+# If you need more help, visit the Docker compose reference guide at
+# https://docs.docker.com/compose/compose-file/
+
+# Here the instructions define your application as a service called "server".
+# This service is built from the Dockerfile in the current directory.
+# You can add other services your application may depend on here, such as a
+# database or a cache. For examples, see the Awesome Compose repository:
+# https://github.com/docker/awesome-compose
+
+services:
+  server:
+    build:
+      context: .
+    command: poetry run uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+    ports:
+      - 8000:8000
+    volumes:
+        - .:/app
+
+    # `depends_on` tells Docker Compose to
+    # start the database before your application. The `db-data` volume persists the
+    # database data between container restarts.
+    depends_on:
+      db:
+        condition: service_healthy
+# Build the database service from the PostGIS image.
+  db:
+    #image: postgis/postgis
+
+    # ------------------------------
+    # postgis image does not have a supported ARM version at this time.
+    # Use the Dockerfile_postgis to build the image since using ARM architecture.
+    build:
+      context: .
+      dockerfile: Dockerfile_postgis
+    # ------------------------------
+    restart: always
+    volumes:
+      - db-data:/var/lib/postgresql/data
+      - ./geospatial_datasets:/geospatial_datasets
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - "5433:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+volumes:
+  db-data:
+
