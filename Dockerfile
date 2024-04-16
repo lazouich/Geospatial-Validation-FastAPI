@@ -33,10 +33,5 @@ COPY  poetry.lock pyproject.toml ./
 RUN poetry config virtualenvs.create false --local
 RUN poetry install
 
-# Copy the source code into the container.
-COPY . .
 
-
-# Run the application.
-CMD ["poetry", "run", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
 

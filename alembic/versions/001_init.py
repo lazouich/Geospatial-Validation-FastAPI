@@ -2,9 +2,9 @@
 
 
 # revision identifiers, used by Alembic.
-revision: str = '9fa7befa0394'
+revision: str = "9fa7befa0394"
 down_revision = None
-branch_labels  = None
+branch_labels = None
 depends_on = None
 
 

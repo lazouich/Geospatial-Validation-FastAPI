@@ -7,8 +7,8 @@ Revises: '9fa7befa0394'
 
 from alembic import op
 
-revision: str = '3f8a294dc35e'
-down_revision = '9fa7befa0394'
+revision: str = "3f8a294dc35e"
+down_revision = "9fa7befa0394"
 branch_labels = None
 depends_on = None
 

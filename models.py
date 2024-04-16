@@ -4,15 +4,7 @@ from sqlalchemy import Column, Integer, String
 from database import Base
 
 
-class Places(Base):
-    __tablename__ = "places"
-
-    id = Column(Integer, primary_key=True)
-    name = Column(String)
-    geom = Column(Geometry('POLYGON'))
-
-
-class PA_Boundary(Base):
+class PABoundary(Base):
     __tablename__ = "pa_boundary"
 
     gid = Column(Integer, primary_key=True)
@@ -25,4 +17,4 @@ class PA_Boundary(Base):
     lsad = Column(String)
     aland = Column(Integer)
     awater = Column(Integer)
-    geom = Column(Geometry('MULTIPOLYGON'))
+    geom = Column(Geometry("MULTIPOLYGON"))
