@@ -12,11 +12,13 @@ services:
   server:
     build:
       context: .
-    command: poetry run uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+    command: > 
+      sh -c "poetry run alembic upgrade head 
+      && poetry run uvicorn main:app --host 0.0.0.0 --port 8000 --reload"
     ports:
       - 8000:8000
     volumes:
-        - .:/app
+        - ./app:/code/app
 
     # `depends_on` tells Docker Compose to
     # start the database before your application. The `db-data` volume persists the
@@ -38,7 +40,6 @@ services:
     restart: always
     volumes:
       - db-data:/var/lib/postgresql/data
-      - ./geospatial_datasets:/geospatial_datasets
     environment:
       - POSTGRES_DB=postgres
       - POSTGRES_USER=postgres

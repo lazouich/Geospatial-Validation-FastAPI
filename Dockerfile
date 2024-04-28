@@ -7,11 +7,7 @@
 ARG PYTHON_VERSION=3.12.0
 FROM python:${PYTHON_VERSION}-slim-bullseye as base
 
-RUN mkdir /app
-WORKDIR /app
-
-RUN pip install --upgrade pip
-RUN pip install poetry
+WORKDIR /code
 
 # Prevents Python from writing pyc files.
 ENV PYTHONDONTWRITEBYTECODE=1
@@ -23,15 +19,19 @@ ENV PYTHONUNBUFFERED=1 \
     PORT=8000
 
 # Poetry
-
-
 # Copy poetry.lock and pyproject.toml
 COPY  poetry.lock pyproject.toml ./
 
 # Install Poetry
 
-RUN poetry config virtualenvs.create false --local
-RUN poetry install
+RUN pip install --upgrade pip  \
+&& pip install poetry \
+&& poetry config virtualenvs.create false --local \
+&& poetry install
+
+WORKDIR app
+
+
 
 
 
