@@ -27,10 +27,10 @@ of writing, the official PostGIS image does not support ARM64 architecture. This
 the official [PostGIS image repository](https://github.com/postgis/docker-postgis) and builds successfully on ARM64
 architecture.
 
-**Note**: To run this project without Docker, the database urls in the `database.py` and `alembic.ini` files will need
+**Notes**: 
+To run this project without Docker, the database urls in the `database.py` and `alembic.ini` files will need
 to be
-updated.
-
+updated. These may also need to be updated if you are using a linux machine. 
 ## Project Structure
 
 The project is structured as follows:
